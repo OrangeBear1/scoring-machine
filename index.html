@@ -25,7 +25,6 @@
             font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Microsoft YaHei', sans-serif;
             background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
             min-height: 100vh;
-            padding: 0;
             color: var(--dark-color);
             overflow-x: hidden;
         }
@@ -34,7 +33,7 @@
             max-width: 100%;
             margin: 0 auto;
             padding: 16px;
-            padding-bottom: 80px;
+            padding-bottom: 20px;
         }
 
         /* 头部样式 */
@@ -63,247 +62,284 @@
             line-height: 1.4;
         }
 
-        /* 移动端控制面板 */
-        .control-panel {
-            background: rgba(255, 255, 255, 0.95);
-            border-radius: 16px;
-            padding: 16px;
-            margin-bottom: 20px;
-            display: flex;
-            gap: 10px;
-            box-shadow: 0 8px 32px rgba(0, 0, 0, 0.1);
-            backdrop-filter: blur(10px);
-            position: sticky;
-            top: 0;
-            z-index: 100;
-        }
-
-        .btn {
-            padding: 12px;
-            border: none;
-            border-radius: 12px;
-            font-size: 14px;
-            font-weight: 600;
-            cursor: pointer;
-            transition: all 0.2s;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            gap: 6px;
-            flex: 1;
-            white-space: nowrap;
-            min-height: 44px;
-        }
-
-        .btn i {
-            font-size: 16px;
-        }
-
-        .btn-primary {
-            background: var(--primary-color);
-            color: white;
-        }
-
-        .btn-success {
-            background: var(--success-color);
-            color: white;
-        }
-
-        .btn-danger {
-            background: var(--danger-color);
-            color: white;
-        }
-
-        /* 玩家卡片 - 移动端优化 */
-        .players-container {
-            display: flex;
-            flex-direction: column;
-            gap: 16px;
-            margin-bottom: 20px;
-        }
-
-        .player-card {
+        /* 玩家列表视图 */
+        .players-list-view {
             background: rgba(255, 255, 255, 0.95);
             border-radius: 20px;
             padding: 20px;
+            margin-bottom: 20px;
             box-shadow: 0 8px 32px rgba(0, 0, 0, 0.1);
             backdrop-filter: blur(10px);
-            transition: transform 0.3s ease;
         }
 
-        .player-card:active {
-            transform: scale(0.98);
-        }
-
-        /* 玩家头部 */
-        .player-header {
+        .players-header {
             display: flex;
-            align-items: center;
             justify-content: space-between;
+            align-items: center;
             margin-bottom: 20px;
         }
 
-        .player-info {
-            display: flex;
-            align-items: center;
+        .players-header h2 {
+            font-size: 1.3rem;
+            font-weight: 700;
+            color: var(--dark-color);
+        }
+
+        .players-count {
+            background: var(--primary-color);
+            color: white;
+            padding: 4px 12px;
+            border-radius: 20px;
+            font-size: 0.85rem;
+            font-weight: 600;
+        }
+
+        .players-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(140px, 1fr));
             gap: 12px;
-            flex: 1;
-            min-width: 0;
+            margin-bottom: 20px;
+        }
+
+        .player-item {
+            background: #f8fafc;
+            border-radius: 16px;
+            padding: 16px;
+            text-align: center;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            border: 2px solid transparent;
+        }
+
+        .player-item:active {
+            transform: scale(0.95);
+        }
+
+        .player-item.active {
+            border-color: var(--primary-color);
+            background: white;
+            box-shadow: 0 4px 20px rgba(99, 102, 241, 0.15);
         }
 
         .player-avatar {
-            width: 50px;
-            height: 50px;
+            width: 60px;
+            height: 60px;
             border-radius: 50%;
-            background: linear-gradient(135deg, var(--player-color, var(--primary-color)), #9ca3af);
+            margin: 0 auto 10px;
             display: flex;
             align-items: center;
             justify-content: center;
-            font-size: 1.2rem;
+            font-size: 1.5rem;
             font-weight: bold;
             color: white;
-            flex-shrink: 0;
         }
 
-        .player-name-container {
-            flex: 1;
-            min-width: 0;
-        }
-
-        .player-name-display {
-            font-size: 1.2rem;
+        .player-item-name {
+            font-size: 1rem;
             font-weight: 700;
+            margin-bottom: 8px;
             color: var(--dark-color);
-            padding: 8px 0;
             overflow: hidden;
             text-overflow: ellipsis;
             white-space: nowrap;
         }
 
-        .player-name-input {
+        .player-item-score {
+            font-size: 1.2rem;
+            font-weight: 800;
+        }
+
+        .player-item-score.positive {
+            color: var(--success-color);
+        }
+
+        .player-item-score.negative {
+            color: var(--danger-color);
+        }
+
+        .player-item-score.neutral {
+            color: #6b7280;
+        }
+
+        /* 计分面板 */
+        .scoring-panel {
+            background: rgba(255, 255, 255, 0.95);
+            border-radius: 20px;
+            padding: 20px;
+            margin-bottom: 20px;
+            box-shadow: 0 8px 32px rgba(0, 0, 0, 0.1);
+            backdrop-filter: blur(10px);
+            display: none;
+        }
+
+        .scoring-header {
+            display: flex;
+            align-items: center;
+            gap: 15px;
+            margin-bottom: 30px;
+        }
+
+        .scoring-back-btn {
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            background: #f3f4f6;
+            border: none;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            color: var(--dark-color);
+            font-size: 1.2rem;
+            transition: all 0.2s;
+        }
+
+        .scoring-back-btn:active {
+            background: #e5e7eb;
+            transform: scale(0.95);
+        }
+
+        .scoring-player-info {
+            flex: 1;
+        }
+
+        .scoring-player-name {
+            font-size: 1.3rem;
+            font-weight: 800;
+            color: var(--dark-color);
+            margin-bottom: 4px;
+        }
+
+        .scoring-player-status {
+            font-size: 0.9rem;
+            color: #6b7280;
+        }
+
+        /* 大分数显示 */
+        .big-score-display {
+            text-align: center;
+            margin: 30px 0;
+        }
+
+        .big-score-label {
+            font-size: 1rem;
+            color: #6b7280;
+            margin-bottom: 10px;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+
+        .big-score-value {
+            font-size: 4rem;
+            font-weight: 800;
+            color: var(--dark-color);
+            line-height: 1;
+        }
+
+        /* 加减分按钮 */
+        .quick-actions {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 12px;
+            margin: 30px 0;
+        }
+
+        .quick-action-btn {
+            padding: 20px 0;
+            border: none;
+            border-radius: 16px;
             font-size: 1.2rem;
             font-weight: 700;
-            border: 2px solid var(--primary-color);
-            border-radius: 10px;
-            padding: 8px 12px;
-            width: 100%;
+            cursor: pointer;
+            transition: all 0.2s;
+            color: white;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            gap: 5px;
+        }
+
+        .quick-action-btn:active {
+            transform: scale(0.95);
+        }
+
+        .quick-action-btn.minus {
+            background: linear-gradient(135deg, var(--danger-color), #dc2626);
+        }
+
+        .quick-action-btn.plus {
+            background: linear-gradient(135deg, var(--success-color), #0da271);
+        }
+
+        .quick-action-btn .label {
+            font-size: 0.85rem;
+            font-weight: 600;
+            opacity: 0.9;
+        }
+
+        /* 自定义分数输入 */
+        .custom-score-section {
+            margin: 25px 0;
+            background: #f8fafc;
+            border-radius: 16px;
+            padding: 20px;
+        }
+
+        .custom-score-title {
+            font-size: 1rem;
+            font-weight: 700;
+            color: var(--dark-color);
+            margin-bottom: 15px;
+            text-align: center;
+        }
+
+        .custom-input-group {
+            display: flex;
+            gap: 10px;
+        }
+
+        .custom-input-group input {
+            flex: 1;
+            padding: 15px;
+            border: 2px solid #d1d5db;
+            border-radius: 12px;
+            font-size: 1.1rem;
+            font-weight: 600;
+            text-align: center;
             outline: none;
             background: white;
             font-family: inherit;
         }
 
-        .player-status {
-            padding: 6px 12px;
-            border-radius: 20px;
-            font-size: 0.75rem;
-            font-weight: 600;
-            background: #f3f4f6;
-            color: #6b7280;
-            white-space: nowrap;
-        }
-
-        .player-status.profit {
-            background: #d1fae5;
-            color: #065f46;
-        }
-
-        .player-status.loss {
-            background: #fee2e2;
-            color: #991b1b;
-        }
-
-        /* 分数显示 */
-        .score-section {
-            text-align: center;
-            margin: 20px 0;
-            position: relative;
-        }
-
-        .score-label {
-            font-size: 0.85rem;
-            color: #6b7280;
-            margin-bottom: 8px;
-            text-transform: uppercase;
-            letter-spacing: 0.5px;
-        }
-
-        .score-value {
-            font-size: 3rem;
-            font-weight: 800;
-            color: var(--dark-color);
-        }
-
-        /* 分数控制 - 移动端大按钮 */
-        .score-controls {
-            display: grid;
-            grid-template-columns: repeat(6, 1fr);
-            gap: 10px;
-            margin-bottom: 20px;
-        }
-
-        .score-btn {
-            padding: 16px 0;
+        .custom-input-group button {
+            min-width: 60px;
+            padding: 0;
             border: none;
             border-radius: 12px;
-            font-size: 1.1rem;
-            font-weight: 700;
-            cursor: pointer;
-            transition: all 0.2s;
+            background: var(--primary-color);
             color: white;
-            min-height: 50px;
+            font-size: 1.2rem;
+            cursor: pointer;
             display: flex;
             align-items: center;
             justify-content: center;
         }
 
-        .score-btn:active {
+        .custom-input-group button:active {
             transform: scale(0.95);
         }
 
-        .score-minus {
-            background: linear-gradient(135deg, var(--danger-color), #dc2626);
-        }
-
-        .score-plus {
-            background: linear-gradient(135deg, var(--success-color), #0da271);
-        }
-
-        /* 自定义分数输入 */
-        .custom-score {
-            display: flex;
-            gap: 10px;
-            margin-top: 16px;
-        }
-
-        .custom-score input {
-            flex: 1;
-            padding: 14px 16px;
-            border: 2px solid #d1d5db;
-            border-radius: 12px;
-            font-size: 1rem;
-            font-weight: 600;
-            outline: none;
-            text-align: center;
-            min-height: 50px;
-        }
-
-        .custom-score .btn {
-            min-width: 60px;
-            padding: 0;
-        }
-
-        /* 分数历史记录 */
-        .score-history {
-            margin-top: 20px;
-            border-top: 1px solid #e5e7eb;
-            padding-top: 16px;
+        /* 历史记录 */
+        .history-section {
+            margin-top: 25px;
         }
 
         .history-header {
             display: flex;
             justify-content: space-between;
             align-items: center;
-            margin-bottom: 12px;
+            margin-bottom: 15px;
         }
 
         .history-header h3 {
@@ -313,10 +349,10 @@
         }
 
         .history-list {
-            max-height: 150px;
+            max-height: 200px;
             overflow-y: auto;
-            border-radius: 10px;
-            background: #f9fafb;
+            border-radius: 12px;
+            background: #f8fafc;
             padding: 12px;
         }
 
@@ -324,22 +360,32 @@
             display: flex;
             justify-content: space-between;
             align-items: center;
-            padding: 10px 0;
+            padding: 12px 0;
             border-bottom: 1px solid #e5e7eb;
-            font-size: 0.9rem;
         }
 
         .history-item:last-child {
             border-bottom: none;
         }
 
+        .history-info {
+            flex: 1;
+        }
+
         .history-time {
-            font-size: 0.75rem;
+            font-size: 0.8rem;
             color: #6b7280;
+            margin-bottom: 2px;
+        }
+
+        .history-description {
+            font-size: 0.9rem;
+            color: var(--dark-color);
         }
 
         .history-change {
-            font-weight: 700;
+            font-weight: 800;
+            font-size: 1.1rem;
         }
 
         .history-change.positive {
@@ -350,31 +396,53 @@
             color: var(--danger-color);
         }
 
-        .history-total {
-            font-weight: 600;
-            color: var(--dark-color);
-        }
-
-        /* 移动端底部操作栏 */
-        .bottom-nav {
-            position: fixed;
-            bottom: 0;
-            left: 0;
-            right: 0;
-            background: rgba(255, 255, 255, 0.98);
-            border-top: 1px solid rgba(0, 0, 0, 0.1);
-            padding: 12px 16px;
-            padding-bottom: calc(12px + env(safe-area-inset-bottom, 0));
-            display: flex;
+        /* 控制按钮 */
+        .control-buttons {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
             gap: 10px;
-            z-index: 1000;
-            box-shadow: 0 -4px 20px rgba(0, 0, 0, 0.1);
+            margin-top: 20px;
         }
 
-        .bottom-nav .btn {
-            padding: 12px;
-            font-size: 0.9rem;
+        .control-btn {
+            padding: 12px 8px;
+            border: none;
             border-radius: 12px;
+            font-size: 0.85rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.2s;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            gap: 5px;
+            background: #f3f4f6;
+            color: var(--dark-color);
+            text-align: center;
+        }
+
+        .control-btn:active {
+            transform: scale(0.95);
+        }
+
+        .control-btn i {
+            font-size: 1rem;
+        }
+
+        .control-btn.primary {
+            background: var(--primary-color);
+            color: white;
+        }
+
+        .control-btn.success {
+            background: var(--success-color);
+            color: white;
+        }
+
+        .control-btn.danger {
+            background: var(--danger-color);
+            color: white;
         }
 
         /* 结果面板 */
@@ -442,7 +510,6 @@
             width: 36px;
             height: 36px;
             border-radius: 50%;
-            background: var(--primary-color);
             color: white;
             display: flex;
             align-items: center;
@@ -488,6 +555,56 @@
             color: #6b7280;
         }
 
+        /* 底部操作栏 */
+        .bottom-nav {
+            position: fixed;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            background: rgba(255, 255, 255, 0.98);
+            border-top: 1px solid rgba(0, 0, 0, 0.1);
+            padding: 12px 16px;
+            padding-bottom: calc(12px + env(safe-area-inset-bottom, 0));
+            display: flex;
+            gap: 10px;
+            z-index: 1000;
+            box-shadow: 0 -4px 20px rgba(0, 0, 0, 0.1);
+        }
+
+        .bottom-nav .btn {
+            flex: 1;
+            padding: 14px;
+            border: none;
+            border-radius: 12px;
+            font-size: 0.9rem;
+            font-weight: 600;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 6px;
+            transition: all 0.2s;
+        }
+
+        .bottom-nav .btn:active {
+            transform: scale(0.95);
+        }
+
+        .btn-primary {
+            background: var(--primary-color);
+            color: white;
+        }
+
+        .btn-success {
+            background: var(--success-color);
+            color: white;
+        }
+
+        .btn-danger {
+            background: var(--danger-color);
+            color: white;
+        }
+
         /* 移动端优化 */
         @media (max-width: 480px) {
             .container {
@@ -503,28 +620,30 @@
                 font-size: 1.5rem;
             }
 
-            .player-card {
-                padding: 16px;
+            .players-grid {
+                grid-template-columns: repeat(auto-fill, minmax(120px, 1fr));
+                gap: 10px;
             }
 
-            .score-controls {
-                grid-template-columns: repeat(3, 1fr);
-                gap: 8px;
+            .player-item {
+                padding: 12px;
             }
 
-            .score-btn {
-                font-size: 1rem;
-                padding: 14px 0;
+            .quick-actions {
+                grid-template-columns: repeat(2, 1fr);
             }
 
-            .bottom-nav {
-                padding: 10px 12px;
-                padding-bottom: calc(10px + env(safe-area-inset-bottom, 0));
+            .big-score-value {
+                font-size: 3.5rem;
+            }
+
+            .control-buttons {
+                grid-template-columns: repeat(2, 1fr);
             }
         }
 
         @media (max-width: 360px) {
-            .score-controls {
+            .players-grid {
                 grid-template-columns: repeat(2, 1fr);
             }
 
@@ -566,22 +685,123 @@
     <div class="container">
         <div class="header">
             <h1>© 2026 陈熊设计 · 家庭娱乐计分器</h1>
-            <p>随时随地，记录牌局分数</p>
+            <p>点击玩家头像进入计分模式</p>
         </div>
 
-        <div class="control-panel">
-            <button class="btn btn-primary" onclick="addPlayer()">
-                <i class="fas fa-user-plus"></i> 添加玩家
-            </button>
-            <button class="btn btn-success" onclick="calculateResults()">
-                <i class="fas fa-calculator"></i> 结算
-            </button>
+        <!-- 玩家列表视图 -->
+        <div class="players-list-view" id="playersListView">
+            <div class="players-header">
+                <h2>玩家列表</h2>
+                <div class="players-count" id="playersCount">3人</div>
+            </div>
+
+            <div class="players-grid" id="playersGrid">
+                <!-- 玩家项目会动态添加到这里 -->
+            </div>
+
+            <div class="control-buttons">
+                <button class="control-btn primary" onclick="addPlayer()">
+                    <i class="fas fa-user-plus"></i>
+                    <span>添加玩家</span>
+                </button>
+                <button class="control-btn success" onclick="calculateResults()">
+                    <i class="fas fa-calculator"></i>
+                    <span>最终结算</span>
+                </button>
+                <button class="control-btn" onclick="resetAllScores()">
+                    <i class="fas fa-redo"></i>
+                    <span>重置分数</span>
+                </button>
+                <button class="control-btn danger" onclick="resetAll()">
+                    <i class="fas fa-trash"></i>
+                    <span>重新开始</span>
+                </button>
+            </div>
         </div>
 
-        <div class="players-container" id="playersContainer">
-            <!-- 玩家卡片会动态添加到这里 -->
+        <!-- 计分面板 -->
+        <div class="scoring-panel" id="scoringPanel">
+            <div class="scoring-header">
+                <button class="scoring-back-btn" onclick="backToPlayerList()">
+                    <i class="fas fa-arrow-left"></i>
+                </button>
+                <div class="scoring-player-info">
+                    <div class="scoring-player-name" id="scoringPlayerName">张三</div>
+                    <div class="scoring-player-status" id="scoringPlayerStatus">总分: 0分</div>
+                </div>
+            </div>
+
+            <div class="big-score-display">
+                <div class="big-score-label">当前分数</div>
+                <div class="big-score-value" id="scoringPlayerScore">0</div>
+            </div>
+
+            <div class="quick-actions">
+                <button class="quick-action-btn minus" onclick="updateCurrentScore(-10)">
+                    <span>-10</span>
+                    <span class="label">分</span>
+                </button>
+                <button class="quick-action-btn minus" onclick="updateCurrentScore(-5)">
+                    <span>-5</span>
+                    <span class="label">分</span>
+                </button>
+                <button class="quick-action-btn minus" onclick="updateCurrentScore(-1)">
+                    <span>-1</span>
+                    <span class="label">分</span>
+                </button>
+                <button class="quick-action-btn plus" onclick="updateCurrentScore(1)">
+                    <span>+1</span>
+                    <span class="label">分</span>
+                </button>
+                <button class="quick-action-btn plus" onclick="updateCurrentScore(5)">
+                    <span>+5</span>
+                    <span class="label">分</span>
+                </button>
+                <button class="quick-action-btn plus" onclick="updateCurrentScore(10)">
+                    <span>+10</span>
+                    <span class="label">分</span>
+                </button>
+            </div>
+
+            <div class="custom-score-section">
+                <div class="custom-score-title">自定义分数调整</div>
+                <div class="custom-input-group">
+                    <input type="number" id="customScoreInput" placeholder="输入分数" inputmode="numeric">
+                    <button onclick="updateWithCustomScore()">
+                        <i class="fas fa-check"></i>
+                    </button>
+                </div>
+                <div style="margin-top: 15px; display: flex; gap: 10px;">
+                    <button class="control-btn" onclick="updateCurrentScore(-20)" style="flex: 1; padding: 10px;">
+                        <span>-20</span>
+                    </button>
+                    <button class="control-btn" onclick="updateCurrentScore(20)" style="flex: 1; padding: 10px;">
+                        <span>+20</span>
+                    </button>
+                    <button class="control-btn" onclick="updateCurrentScore(-50)" style="flex: 1; padding: 10px;">
+                        <span>-50</span>
+                    </button>
+                    <button class="control-btn" onclick="updateCurrentScore(50)" style="flex: 1; padding: 10px;">
+                        <span>+50</span>
+                    </button>
+                </div>
+            </div>
+
+            <div class="history-section">
+                <div class="history-header">
+                    <h3>最近操作记录</h3>
+                    <button class="control-btn" onclick="clearCurrentHistory()" style="padding: 6px 12px; font-size: 0.8rem;">
+                        <i class="fas fa-trash"></i>
+                        <span>清空</span>
+                    </button>
+                </div>
+                <div class="history-list" id="currentPlayerHistory">
+                    <!-- 历史记录会动态添加到这里 -->
+                </div>
+            </div>
         </div>
 
+        <!-- 结果面板 -->
         <div class="results-panel" id="resultsPanel">
             <div class="results-header">
                 <h2>最终结算</h2>
@@ -595,10 +815,10 @@
         </div>
     </div>
 
-    <!-- 移动端底部操作栏 -->
+    <!-- 底部操作栏 -->
     <div class="bottom-nav">
         <button class="btn btn-primary" onclick="addPlayer()">
-            <i class="fas fa-user-plus"></i> 添加
+            <i class="fas fa-user-plus"></i> 添加玩家
         </button>
         <button class="btn btn-success" onclick="calculateResults()">
             <i class="fas fa-calculator"></i> 结算
@@ -607,11 +827,6 @@
             <i class="fas fa-redo"></i> 重置
         </button>
     </div>
-
-    <footer class="footer">
-    <p>© 2026 陈熊设计 · 家庭娱乐计分器</p>
-</footer>
-
 
     <script>
         // 初始玩家数据
@@ -622,7 +837,7 @@
                 score: 0,
                 color: "#6366f1",
                 avatar: "张",
-                history: [{time: new Date().toLocaleTimeString(), change: 0, total: 0, description: "初始分数"}]
+                history: [{time: new Date().toLocaleTimeString().slice(0, 5), change: 0, total: 0, description: "初始分数"}]
             },
             {
                 id: 2,
@@ -630,7 +845,7 @@
                 score: 0,
                 color: "#10b981",
                 avatar: "李",
-                history: [{time: new Date().toLocaleTimeString(), change: 0, total: 0, description: "初始分数"}]
+                history: [{time: new Date().toLocaleTimeString().slice(0, 5), change: 0, total: 0, description: "初始分数"}]
             },
             {
                 id: 3,
@@ -638,16 +853,19 @@
                 score: 0,
                 color: "#f59e0b",
                 avatar: "王",
-                history: [{time: new Date().toLocaleTimeString(), change: 0, total: 0, description: "初始分数"}]
+                history: [{time: new Date().toLocaleTimeString().slice(0, 5), change: 0, total: 0, description: "初始分数"}]
             }
         ];
 
         // 预定义颜色
         const colors = ["#6366f1", "#10b981", "#f59e0b", "#ef4444", "#8b5cf6", "#06b6d4"];
 
+        // 当前选中的玩家ID
+        let currentPlayerId = null;
+
         // 初始化页面
         document.addEventListener('DOMContentLoaded', function() {
-            renderPlayers();
+            renderPlayerList();
 
             // 防止iOS Safari 100vh问题
             document.documentElement.style.setProperty('--vh', window.innerHeight * 0.01 + 'px');
@@ -664,109 +882,111 @@
                 }
                 lastTouchEnd = now;
             }, false);
+
+            // 监听键盘输入
+            document.getElementById('customScoreInput').addEventListener('keypress', function(e) {
+                if (e.key === 'Enter') {
+                    updateWithCustomScore();
+                }
+            });
         });
 
-        // 渲染所有玩家
-        function renderPlayers() {
-            const container = document.getElementById('playersContainer');
-            container.innerHTML = '';
+        // 渲染玩家列表
+        function renderPlayerList() {
+            const grid = document.getElementById('playersGrid');
+            const count = document.getElementById('playersCount');
+
+            grid.innerHTML = '';
+            count.textContent = `${players.length}人`;
 
             players.forEach((player, index) => {
-                const playerCard = document.createElement('div');
-                playerCard.className = 'player-card';
-                playerCard.style.setProperty('--player-color', player.color);
+                const playerItem = document.createElement('div');
+                playerItem.className = 'player-item';
+                playerItem.dataset.id = player.id;
 
-                const historyHTML = player.history.length > 0
-                    ? player.history.slice(-5).reverse().map(item => `
-                        <div class="history-item">
-                            <div style="flex: 1;">
-                                <div style="display: flex; justify-content: space-between;">
-                                    <span class="history-time">${item.time}</span>
-                                    <span class="history-change ${item.change > 0 ? 'positive' : item.change < 0 ? 'negative' : ''}">
-                                        ${item.change > 0 ? '+' : ''}${item.change}
-                                    </span>
-                                </div>
-                            </div>
-                            <div class="history-total">${item.total}</div>
-                        </div>
-                    `).join('')
-                    : '<div style="text-align: center; color: #6b7280; padding: 10px;">暂无记录</div>';
+                // 确定分数显示样式
+                let scoreClass = 'neutral';
+                if (player.score > 0) scoreClass = 'positive';
+                else if (player.score < 0) scoreClass = 'negative';
 
-                playerCard.innerHTML = `
-                    <div class="player-header">
-                        <div class="player-info">
-                            <div class="player-avatar" style="background: linear-gradient(135deg, ${player.color}, ${darkenColor(player.color, 20)})">
-                                ${player.avatar}
-                            </div>
-                            <div class="player-name-container">
-                                <div class="player-name-display" id="name-display-${player.id}" onclick="editPlayerName(${player.id})">
-                                    ${player.name}
-                                </div>
-                                <input type="text" class="player-name-input" id="name-input-${player.id}"
-                                       value="${player.name}" style="display: none;"
-                                       onblur="savePlayerName(${player.id})"
-                                       onkeypress="handleNameKeyPress(event, ${player.id})">
-                            </div>
-                        </div>
-                        <div class="player-status" id="status-${player.id}">
-                            ${player.score > 0 ? '盈利' : player.score < 0 ? '亏损' : '平局'}
-                        </div>
+                // 确定分数显示文本
+                let scoreText = player.score.toString();
+                if (player.score > 0) scoreText = `+${player.score}`;
+
+                playerItem.innerHTML = `
+                    <div class="player-avatar" style="background: linear-gradient(135deg, ${player.color}, ${darkenColor(player.color, 20)})">
+                        ${player.avatar}
                     </div>
-
-                    <div class="score-section">
-                        <div class="score-label">当前分数</div>
-                        <div class="score-value" id="score-${player.id}">${player.score}</div>
-                    </div>
-
-                    <div class="score-controls">
-                        <button class="score-btn score-minus" onclick="updateScore(${player.id}, -10, '-10分')">-10</button>
-                        <button class="score-btn score-minus" onclick="updateScore(${player.id}, -5, '-5分')">-5</button>
-                        <button class="score-btn score-minus" onclick="updateScore(${player.id}, -1, '-1分')">-1</button>
-                        <button class="score-btn score-plus" onclick="updateScore(${player.id}, 1, '+1分')">+1</button>
-                        <button class="score-btn score-plus" onclick="updateScore(${player.id}, 5, '+5分')">+5</button>
-                        <button class="score-btn score-plus" onclick="updateScore(${player.id}, 10, '+10分')">+10</button>
-                    </div>
-
-                    <div class="custom-score">
-                        <input type="number" id="customInput-${player.id}" placeholder="输入分数" inputmode="numeric">
-                        <button class="btn btn-primary" onclick="customUpdateScore(${player.id})">
-                            <i class="fas fa-check"></i>
-                        </button>
-                        ${players.length > 3 ? `
-                            <button class="btn btn-danger" onclick="removePlayer(${player.id})">
-                                <i class="fas fa-trash"></i>
-                            </button>` : ''}
-                    </div>
-
-                    <div class="score-history">
-                        <div class="history-header">
-                            <h3>最近记录</h3>
-                            <button class="btn" style="padding: 4px 8px; font-size: 0.75rem; background: #f3f4f6; color: #6b7280;" onclick="clearHistory(${player.id})">
-                                清空
-                            </button>
-                        </div>
-                        <div class="history-list" id="history-${player.id}">
-                            ${historyHTML}
-                        </div>
-                    </div>
+                    <div class="player-item-name">${player.name}</div>
+                    <div class="player-item-score ${scoreClass}">${scoreText}</div>
                 `;
-                container.appendChild(playerCard);
 
-                // 更新玩家状态
-                updatePlayerStatus(player.id);
+                // 添加点击事件
+                playerItem.addEventListener('click', () => {
+                    selectPlayer(player.id);
+                });
+
+                grid.appendChild(playerItem);
             });
         }
 
-        // 颜色加深函数
-        function darkenColor(color, percent) {
-            const num = parseInt(color.replace("#", ""), 16);
-            const amt = Math.round(2.55 * percent);
-            const R = (num >> 16) - amt;
-            const G = (num >> 8 & 0x00FF) - amt;
-            const B = (num & 0x0000FF) - amt;
-            return "#" + (0x1000000 + (R < 255 ? R < 1 ? 0 : R : 255) * 0x10000 +
-                (G < 255 ? G < 1 ? 0 : G : 255) * 0x100 +
-                (B < 255 ? B < 1 ? 0 : B : 255)).toString(16).slice(1);
+        // 选择玩家进入计分模式
+        function selectPlayer(playerId) {
+            currentPlayerId = playerId;
+            const player = players.find(p => p.id === playerId);
+
+            if (!player) return;
+
+            // 切换到计分面板
+            document.getElementById('playersListView').style.display = 'none';
+            document.getElementById('scoringPanel').style.display = 'block';
+
+            // 更新计分面板信息
+            document.getElementById('scoringPlayerName').textContent = player.name;
+            document.getElementById('scoringPlayerScore').textContent = player.score;
+
+            // 更新状态显示
+            updateScoringPlayerStatus();
+
+            // 更新历史记录
+            updateCurrentPlayerHistory();
+
+            // 高亮选中的玩家
+            document.querySelectorAll('.player-item').forEach(item => {
+                item.classList.remove('active');
+                if (parseInt(item.dataset.id) === playerId) {
+                    item.classList.add('active');
+                }
+            });
+        }
+
+        // 返回到玩家列表
+        function backToPlayerList() {
+            currentPlayerId = null;
+            document.getElementById('playersListView').style.display = 'block';
+            document.getElementById('scoringPanel').style.display = 'none';
+            renderPlayerList();
+        }
+
+        // 更新当前玩家的分数
+        function updateCurrentScore(change) {
+            if (!currentPlayerId) return;
+
+            const player = players.find(p => p.id === currentPlayerId);
+            if (!player) return;
+
+            const description = change > 0 ? `+${change}分` : `${change}分`;
+            updateScore(player.id, change, description);
+
+            // 更新显示
+            document.getElementById('scoringPlayerScore').textContent = player.score;
+            updateScoringPlayerStatus();
+            updateCurrentPlayerHistory();
+
+            // 触觉反馈（如果支持）
+            if (window.navigator.vibrate) {
+                window.navigator.vibrate(30);
+            }
         }
 
         // 更新分数
@@ -774,7 +994,6 @@
             const player = players.find(p => p.id === playerId);
             if (!player) return;
 
-            const oldScore = player.score;
             player.score += change;
 
             // 记录到历史
@@ -787,135 +1006,96 @@
 
             player.history.push(historyItem);
 
-            // 更新显示
-            const scoreElement = document.getElementById(`score-${playerId}`);
+            // 更新玩家列表显示
+            renderPlayerList();
+        }
 
-            // 动画效果
-            scoreElement.style.transform = 'scale(1.1)';
-            setTimeout(() => {
-                scoreElement.style.transform = 'scale(1)';
-            }, 200);
+        // 使用自定义分数
+        function updateWithCustomScore() {
+            if (!currentPlayerId) return;
 
-            scoreElement.textContent = player.score;
+            const input = document.getElementById('customScoreInput');
+            const value = parseInt(input.value);
 
-            // 更新历史记录显示
-            updateHistoryDisplay(playerId);
-
-            // 更新玩家状态
-            updatePlayerStatus(playerId);
-
-            // 触觉反馈（如果支持）
-            if (window.navigator.vibrate) {
-                window.navigator.vibrate(50);
+            if (!isNaN(value) && value !== 0) {
+                updateCurrentScore(value);
+                input.value = '';
+                input.blur(); // 隐藏键盘
+            } else {
+                showToast('请输入有效的数字', 'warning');
             }
         }
 
-        // 更新历史记录显示
-        function updateHistoryDisplay(playerId) {
-            const player = players.find(p => p.id === playerId);
+        // 更新计分面板状态显示
+        function updateScoringPlayerStatus() {
+            if (!currentPlayerId) return;
+
+            const player = players.find(p => p.id === currentPlayerId);
             if (!player) return;
 
-            const historyElement = document.getElementById(`history-${playerId}`);
-            if (!historyElement) return;
+            const statusElement = document.getElementById('scoringPlayerStatus');
+            let statusText = '';
 
-            const recentHistory = player.history.slice(-5).reverse();
+            if (player.score > 0) {
+                statusText = `盈利: +${player.score}分`;
+            } else if (player.score < 0) {
+                statusText = `亏损: ${player.score}分`;
+            } else {
+                statusText = '平局: 0分';
+            }
+
+            statusText += ` | 操作次数: ${player.history.length - 1}`;
+            statusElement.textContent = statusText;
+        }
+
+        // 更新当前玩家的历史记录显示
+        function updateCurrentPlayerHistory() {
+            if (!currentPlayerId) return;
+
+            const player = players.find(p => p.id === currentPlayerId);
+            if (!player) return;
+
+            const historyElement = document.getElementById('currentPlayerHistory');
+            const recentHistory = player.history.slice(-10).reverse();
 
             historyElement.innerHTML = recentHistory.length > 0
                 ? recentHistory.map(item => `
                     <div class="history-item">
-                        <div style="flex: 1;">
-                            <div style="display: flex; justify-content: space-between;">
-                                <span class="history-time">${item.time}</span>
-                                <span class="history-change ${item.change > 0 ? 'positive' : item.change < 0 ? 'negative' : ''}">
-                                    ${item.change > 0 ? '+' : ''}${item.change}
-                                </span>
-                            </div>
+                        <div class="history-info">
+                            <div class="history-time">${item.time}</div>
+                            <div class="history-description">${item.description}</div>
                         </div>
-                        <div class="history-total">${item.total}</div>
+                        <div class="history-change ${item.change > 0 ? 'positive' : item.change < 0 ? 'negative' : ''}">
+                            ${item.change > 0 ? '+' : ''}${item.change}
+                        </div>
                     </div>
                 `).join('')
-                : '<div style="text-align: center; color: #6b7280; padding: 10px;">暂无记录</div>';
+                : '<div style="text-align: center; color: #6b7280; padding: 20px;">暂无记录</div>';
         }
 
-        // 自定义更新分数
-        function customUpdateScore(playerId) {
-            const input = document.getElementById(`customInput-${playerId}`);
-            const value = parseInt(input.value);
+        // 清空当前玩家的历史记录
+        function clearCurrentHistory() {
+            if (!currentPlayerId) return;
 
-            if (!isNaN(value)) {
-                updateScore(playerId, value, `自定义${value > 0 ? '+' : ''}${value}分`);
-                input.value = '';
-                input.blur(); // 隐藏键盘
-            } else {
-                showToast('请输入数字', 'warning');
-            }
-        }
-
-        // 清空历史记录
-        function clearHistory(playerId) {
-            const player = players.find(p => p.id === playerId);
+            const player = players.find(p => p.id === currentPlayerId);
             if (player) {
-                player.history = [{time: new Date().toLocaleTimeString(), change: 0, total: player.score, description: "清空记录"}];
-                updateHistoryDisplay(playerId);
+                player.history = [{time: new Date().toLocaleTimeString().slice(0, 5), change: 0, total: player.score, description: "清空记录"}];
+                updateCurrentPlayerHistory();
+                updateScoringPlayerStatus();
                 showToast('已清空记录', 'info');
             }
         }
 
-        // 更新玩家状态显示
-        function updatePlayerStatus(playerId) {
-            const player = players.find(p => p.id === playerId);
-            if (!player) return;
-
-            const statusElement = document.getElementById(`status-${playerId}`);
-            if (!statusElement) return;
-
-            if (player.score > 0) {
-                statusElement.textContent = `+${player.score}`;
-                statusElement.className = 'player-status profit';
-            } else if (player.score < 0) {
-                statusElement.textContent = player.score;
-                statusElement.className = 'player-status loss';
-            } else {
-                statusElement.textContent = '0';
-                statusElement.className = 'player-status';
-            }
-        }
-
-        // 编辑玩家名字
-        function editPlayerName(playerId) {
-            const displayElement = document.getElementById(`name-display-${playerId}`);
-            const inputElement = document.getElementById(`name-input-${playerId}`);
-
-            displayElement.style.display = 'none';
-            inputElement.style.display = 'block';
-            inputElement.focus();
-            inputElement.select();
-        }
-
-        // 保存玩家名字
-        function savePlayerName(playerId) {
-            const displayElement = document.getElementById(`name-display-${playerId}`);
-            const inputElement = document.getElementById(`name-input-${playerId}`);
-            const player = players.find(p => p.id === playerId);
-
-            if (player && inputElement.value.trim() !== '') {
-                player.name = inputElement.value.trim();
-                player.avatar = player.name.charAt(0);
-                displayElement.textContent = player.name;
-
-                // 重新渲染以更新头像
-                renderPlayers();
-            }
-
-            displayElement.style.display = 'block';
-            inputElement.style.display = 'none';
-        }
-
-        // 处理名字编辑的按键事件
-        function handleNameKeyPress(event, playerId) {
-            if (event.key === 'Enter') {
-                savePlayerName(playerId);
-            }
+        // 颜色加深函数
+        function darkenColor(color, percent) {
+            const num = parseInt(color.replace("#", ""), 16);
+            const amt = Math.round(2.55 * percent);
+            const R = (num >> 16) - amt;
+            const G = (num >> 8 & 0x00FF) - amt;
+            const B = (num & 0x0000FF) - amt;
+            return "#" + (0x1000000 + (R < 255 ? R < 1 ? 0 : R : 255) * 0x10000 +
+                (G < 255 ? G < 1 ? 0 : G : 255) * 0x100 +
+                (B < 255 ? B < 1 ? 0 : B : 255)).toString(16).slice(1);
         }
 
         // 添加新玩家
@@ -935,33 +1115,68 @@
                 score: 0,
                 color: colors[colorIndex],
                 avatar: `玩${playerNum}`.charAt(0),
-                history: [{time: new Date().toLocaleTimeString(), change: 0, total: 0, description: "初始分数"}]
+                history: [{time: new Date().toLocaleTimeString().slice(0, 5), change: 0, total: 0, description: "初始分数"}]
             });
 
-            renderPlayers();
+            renderPlayerList();
             showToast(`添加了玩家${playerNum}`, 'success');
-
-            // 滚动到新玩家
-            setTimeout(() => {
-                document.getElementById('playersContainer').lastElementChild.scrollIntoView({
-                    behavior: 'smooth',
-                    block: 'center'
-                });
-            }, 100);
         }
 
-        // 移除玩家
-        function removePlayer(playerId) {
-            if (players.length <= 3) {
-                showToast('最少需要3个玩家', 'warning');
-                return;
-            }
+        // 重置所有分数
+        function resetAllScores() {
+            if (confirm('确定要重置所有分数吗？所有玩家分数将归零，但玩家信息保留。')) {
+                players.forEach(player => {
+                    player.score = 0;
+                    player.history = [{time: new Date().toLocaleTimeString().slice(0, 5), change: 0, total: 0, description: "重置分数"}];
+                });
 
-            const player = players.find(p => p.id === playerId);
-            if (player) {
-                players = players.filter(p => p.id !== playerId);
-                renderPlayers();
-                showToast(`移除了${player.name}`, 'info');
+                renderPlayerList();
+                if (currentPlayerId) {
+                    selectPlayer(currentPlayerId);
+                }
+
+                document.getElementById('resultsPanel').style.display = 'none';
+                showToast('已重置所有分数', 'info');
+            }
+        }
+
+        // 完全重置
+        function resetAll() {
+            if (confirm('确定要重新开始吗？所有玩家和分数将被清除，并恢复为初始状态。')) {
+                players = [
+                    {
+                        id: 1,
+                        name: "张三",
+                        score: 0,
+                        color: "#6366f1",
+                        avatar: "张",
+                        history: [{time: new Date().toLocaleTimeString().slice(0, 5), change: 0, total: 0, description: "初始分数"}]
+                    },
+                    {
+                        id: 2,
+                        name: "李四",
+                        score: 0,
+                        color: "#10b981",
+                        avatar: "李",
+                        history: [{time: new Date().toLocaleTimeString().slice(0, 5), change: 0, total: 0, description: "初始分数"}]
+                    },
+                    {
+                        id: 3,
+                        name: "王五",
+                        score: 0,
+                        color: "#f59e0b",
+                        avatar: "王",
+                        history: [{time: new Date().toLocaleTimeString().slice(0, 5), change: 0, total: 0, description: "初始分数"}]
+                    }
+                ];
+
+                currentPlayerId = null;
+                document.getElementById('playersListView').style.display = 'block';
+                document.getElementById('scoringPanel').style.display = 'none';
+                document.getElementById('resultsPanel').style.display = 'none';
+
+                renderPlayerList();
+                showToast('已重新开始', 'info');
             }
         }
 
@@ -971,6 +1186,9 @@
                 showToast('至少需要2个玩家', 'warning');
                 return;
             }
+
+            // 确保显示玩家列表
+            backToPlayerList();
 
             // 计算总分
             const totalScore = players.reduce((sum, player) => sum + player.score, 0);
@@ -1057,22 +1275,7 @@
             });
         }
 
-        // 重置所有数据
-        function resetAll() {
-            if (confirm('确定要重置所有分数吗？')) {
-                players.forEach(player => {
-                    player.score = 0;
-                    player.history = [{time: new Date().toLocaleTimeString(), change: 0, total: 0, description: "重置后初始分数"}];
-                });
-                renderPlayers();
-
-                document.getElementById('resultsPanel').style.display = 'none';
-
-                showToast('已重置所有分数', 'info');
-            }
-        }
-
-        // 显示Toast通知（移动端优化）
+        // 显示Toast通知
         function showToast(message, type) {
             const toast = document.createElement('div');
             toast.style.cssText = `
@@ -1111,34 +1314,6 @@
                     document.body.removeChild(toast);
                 }, 300);
             }, 2000);
-        }
-
-        // 长按事件支持
-        let longPressTimer;
-
-        function startLongPress(playerId, change) {
-            longPressTimer = setTimeout(() => {
-                updateScore(playerId, change);
-                // 重复执行
-                const interval = setInterval(() => {
-                    updateScore(playerId, change);
-                }, 150);
-
-                // 清除长按
-                const stopLongPress = () => {
-                    clearInterval(interval);
-                    clearTimeout(longPressTimer);
-                    document.removeEventListener('touchend', stopLongPress);
-                    document.removeEventListener('mouseup', stopLongPress);
-                };
-
-                document.addEventListener('touchend', stopLongPress);
-                document.addEventListener('mouseup', stopLongPress);
-            }, 500);
-        }
-
-        function cancelLongPress() {
-            clearTimeout(longPressTimer);
         }
     </script>
 </body>
