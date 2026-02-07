@@ -33,14 +33,14 @@
             max-width: 100%;
             margin: 0 auto;
             padding: 16px;
-            padding-bottom: 20px;
+            padding-bottom: 90px;
         }
 
-        /* 头部样式 */
+        /* 头部样式 - 简化版 */
         .header {
             text-align: center;
-            margin-bottom: 20px;
-            padding: 20px 0;
+            margin-bottom: 15px;
+            padding: 15px 0;
             background: rgba(255, 255, 255, 0.95);
             border-radius: 20px;
             margin-top: env(safe-area-inset-top, 0);
@@ -49,15 +49,15 @@
         }
 
         .header h1 {
-            font-size: 1.8rem;
+            font-size: 1.6rem;
             font-weight: 800;
             color: var(--primary-color);
-            margin-bottom: 8px;
+            margin-bottom: 5px;
         }
 
         .header p {
             color: #6b7280;
-            font-size: 0.9rem;
+            font-size: 0.85rem;
             padding: 0 16px;
             line-height: 1.4;
         }
@@ -109,6 +109,7 @@
             cursor: pointer;
             transition: all 0.3s ease;
             border: 2px solid transparent;
+            position: relative;
         }
 
         .player-item:active {
@@ -132,6 +133,12 @@
             font-size: 1.5rem;
             font-weight: bold;
             color: white;
+            cursor: pointer;
+            transition: transform 0.2s;
+        }
+
+        .player-avatar:active {
+            transform: scale(0.95);
         }
 
         .player-item-name {
@@ -142,6 +149,27 @@
             overflow: hidden;
             text-overflow: ellipsis;
             white-space: nowrap;
+            padding: 5px;
+            border-radius: 8px;
+            cursor: pointer;
+            transition: background-color 0.2s;
+        }
+
+        .player-item-name:hover {
+            background-color: #f1f5f9;
+        }
+
+        .player-item-name-input {
+            width: 100%;
+            padding: 5px;
+            border: 2px solid var(--primary-color);
+            border-radius: 8px;
+            font-size: 1rem;
+            font-weight: 700;
+            text-align: center;
+            outline: none;
+            background: white;
+            font-family: inherit;
         }
 
         .player-item-score {
@@ -159,6 +187,29 @@
 
         .player-item-score.neutral {
             color: #6b7280;
+        }
+
+        .edit-name-icon {
+            position: absolute;
+            top: 8px;
+            right: 8px;
+            width: 24px;
+            height: 24px;
+            border-radius: 50%;
+            background: #f1f5f9;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            color: #6b7280;
+            font-size: 0.8rem;
+            transition: all 0.2s;
+            z-index: 10;
+        }
+
+        .edit-name-icon:hover {
+            background: var(--primary-color);
+            color: white;
         }
 
         /* 计分面板 */
@@ -201,6 +252,7 @@
 
         .scoring-player-info {
             flex: 1;
+            position: relative;
         }
 
         .scoring-player-name {
@@ -208,11 +260,54 @@
             font-weight: 800;
             color: var(--dark-color);
             margin-bottom: 4px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            cursor: pointer;
+            padding: 8px;
+            border-radius: 10px;
+            transition: background-color 0.2s;
+        }
+
+        .scoring-player-name:hover {
+            background-color: #f1f5f9;
+        }
+
+        .scoring-player-name-input {
+            font-size: 1.3rem;
+            font-weight: 800;
+            border: 2px solid var(--primary-color);
+            border-radius: 10px;
+            padding: 8px 12px;
+            width: 100%;
+            outline: none;
+            background: white;
+            font-family: inherit;
         }
 
         .scoring-player-status {
             font-size: 0.9rem;
             color: #6b7280;
+        }
+
+        .edit-name-btn {
+            width: 32px;
+            height: 32px;
+            border-radius: 50%;
+            background: #f3f4f6;
+            border: none;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            color: #6b7280;
+            font-size: 0.9rem;
+            transition: all 0.2s;
+        }
+
+        .edit-name-btn:hover {
+            background: var(--primary-color);
+            color: white;
         }
 
         /* 大分数显示 */
@@ -605,6 +700,19 @@
             color: white;
         }
 
+        /* 页面底部版权信息 */
+        .page-footer {
+            text-align: center;
+            padding: 20px 0;
+            color: rgba(255, 255, 255, 0.7);
+            font-size: 0.8rem;
+            margin-top: 10px;
+        }
+
+        .page-footer p {
+            margin-bottom: 5px;
+        }
+
         /* 移动端优化 */
         @media (max-width: 480px) {
             .container {
@@ -613,11 +721,12 @@
             }
 
             .header {
-                padding: 16px 0;
+                padding: 12px 0;
+                margin-bottom: 12px;
             }
 
             .header h1 {
-                font-size: 1.5rem;
+                font-size: 1.4rem;
             }
 
             .players-grid {
@@ -639,6 +748,11 @@
 
             .control-buttons {
                 grid-template-columns: repeat(2, 1fr);
+            }
+
+            .page-footer {
+                font-size: 0.75rem;
+                padding: 15px 0;
             }
         }
 
@@ -683,9 +797,10 @@
 </head>
 <body>
     <div class="container">
+        <!-- 简化头部 -->
         <div class="header">
-            <h1>© 2026 陈熊设计 · 家庭娱乐计分器</h1>
-            <p>点击玩家头像进入计分模式</p>
+            <h1>家庭娱乐计分器</h1>
+            <p>点击玩家头像进入计分模式，点击名字可修改</p>
         </div>
 
         <!-- 玩家列表视图 -->
@@ -726,7 +841,15 @@
                     <i class="fas fa-arrow-left"></i>
                 </button>
                 <div class="scoring-player-info">
-                    <div class="scoring-player-name" id="scoringPlayerName">张三</div>
+                    <div class="scoring-player-name" id="scoringPlayerNameDisplay" onclick="editPlayerNameInScoring()">
+                        <span id="scoringPlayerNameText">张三</span>
+                        <button class="edit-name-btn">
+                            <i class="fas fa-edit"></i>
+                        </button>
+                    </div>
+                    <input type="text" class="scoring-player-name-input" id="scoringPlayerNameInput"
+                           style="display: none;" onblur="savePlayerNameInScoring()"
+                           onkeypress="handleScoringNameKeyPress(event)">
                     <div class="scoring-player-status" id="scoringPlayerStatus">总分: 0分</div>
                 </div>
             </div>
@@ -813,6 +936,18 @@
                 <!-- 结果会动态显示在这里 -->
             </div>
         </div>
+
+        <!-- 页面底部版权信息 -->
+        <p style="font-family: 'Arial', sans-serif; font-size: 18px; text-align: center; color: #999;" id="signature">
+    © <span id="year"></span> 陈熊出品
+</p>
+
+<script>
+    document.getElementById("year").textContent = new Date().getFullYear();
+</script>
+
+
+
     </div>
 
     <!-- 底部操作栏 -->
@@ -862,6 +997,9 @@
 
         // 当前选中的玩家ID
         let currentPlayerId = null;
+
+        // 当前正在编辑名字的玩家ID
+        let editingPlayerId = null;
 
         // 初始化页面
         document.addEventListener('DOMContentLoaded', function() {
@@ -913,21 +1051,146 @@
                 let scoreText = player.score.toString();
                 if (player.score > 0) scoreText = `+${player.score}`;
 
+                // 检查是否正在编辑此玩家的名字
+                const isEditing = editingPlayerId === player.id;
+
                 playerItem.innerHTML = `
-                    <div class="player-avatar" style="background: linear-gradient(135deg, ${player.color}, ${darkenColor(player.color, 20)})">
+                    <div class="edit-name-icon" onclick="editPlayerNameInList(${player.id})">
+                        <i class="fas fa-edit"></i>
+                    </div>
+                    <div class="player-avatar" style="background: linear-gradient(135deg, ${player.color}, ${darkenColor(player.color, 20)})" onclick="selectPlayer(${player.id})">
                         ${player.avatar}
                     </div>
-                    <div class="player-item-name">${player.name}</div>
-                    <div class="player-item-score ${scoreClass}">${scoreText}</div>
+                    ${isEditing ? `
+                        <input type="text" class="player-item-name-input"
+                               value="${player.name}"
+                               id="playerNameInput-${player.id}"
+                               onblur="savePlayerNameInList(${player.id})"
+                               onkeypress="handleListNameKeyPress(event, ${player.id})">
+                    ` : `
+                        <div class="player-item-name" onclick="editPlayerNameInList(${player.id})">
+                            ${player.name}
+                        </div>
+                    `}
+                    <div class="player-item-score ${scoreClass}" onclick="selectPlayer(${player.id})">${scoreText}</div>
                 `;
 
-                // 添加点击事件
-                playerItem.addEventListener('click', () => {
-                    selectPlayer(player.id);
+                // 添加点击事件（点击整个卡片，除了编辑按钮和输入框）
+                playerItem.addEventListener('click', (e) => {
+                    // 如果点击的是编辑图标或输入框，不触发选择玩家
+                    if (e.target.closest('.edit-name-icon') || e.target.classList.contains('player-item-name-input')) {
+                        return;
+                    }
+                    // 如果点击的是名字（且不在编辑模式），也不触发选择玩家
+                    if (e.target.classList.contains('player-item-name') && !isEditing) {
+                        return;
+                    }
+                    // 如果点击的是头像或分数，触发选择玩家
+                    if (e.target.classList.contains('player-avatar') || e.target.classList.contains('player-item-score')) {
+                        selectPlayer(player.id);
+                    }
                 });
 
                 grid.appendChild(playerItem);
+
+                // 如果正在编辑此玩家的名字，聚焦输入框
+                if (isEditing) {
+                    setTimeout(() => {
+                        const input = document.getElementById(`playerNameInput-${player.id}`);
+                        if (input) {
+                            input.focus();
+                            input.select();
+                        }
+                    }, 10);
+                }
             });
+        }
+
+        // 在玩家列表中编辑名字
+        function editPlayerNameInList(playerId) {
+            editingPlayerId = playerId;
+            renderPlayerList();
+        }
+
+        // 保存玩家列表中的名字
+        function savePlayerNameInList(playerId) {
+            const input = document.getElementById(`playerNameInput-${playerId}`);
+            if (!input) return;
+
+            const newName = input.value.trim();
+            const player = players.find(p => p.id === playerId);
+
+            if (player && newName && newName !== player.name) {
+                player.name = newName;
+                player.avatar = newName.charAt(0);
+                showToast(`已将名字改为 ${newName}`, 'success');
+            }
+
+            editingPlayerId = null;
+            renderPlayerList();
+
+            // 如果当前正在查看此玩家，更新计分面板
+            if (currentPlayerId === playerId) {
+                document.getElementById('scoringPlayerNameText').textContent = player.name;
+            }
+        }
+
+        // 处理玩家列表名字输入的按键事件
+        function handleListNameKeyPress(event, playerId) {
+            if (event.key === 'Enter') {
+                savePlayerNameInList(playerId);
+            }
+        }
+
+        // 在计分面板中编辑名字
+        function editPlayerNameInScoring() {
+            if (!currentPlayerId) return;
+
+            const displayElement = document.getElementById('scoringPlayerNameDisplay');
+            const inputElement = document.getElementById('scoringPlayerNameInput');
+            const player = players.find(p => p.id === currentPlayerId);
+
+            if (!player) return;
+
+            displayElement.style.display = 'none';
+            inputElement.style.display = 'block';
+            inputElement.value = player.name;
+            inputElement.focus();
+            inputElement.select();
+        }
+
+        // 保存计分面板中的名字
+        function savePlayerNameInScoring() {
+            if (!currentPlayerId) return;
+
+            const displayElement = document.getElementById('scoringPlayerNameDisplay');
+            const inputElement = document.getElementById('scoringPlayerNameInput');
+            const player = players.find(p => p.id === currentPlayerId);
+
+            if (!player) return;
+
+            const newName = inputElement.value.trim();
+            if (newName && newName !== player.name) {
+                player.name = newName;
+                player.avatar = newName.charAt(0);
+
+                // 更新显示
+                document.getElementById('scoringPlayerNameText').textContent = newName;
+                showToast(`已将名字改为 ${newName}`, 'success');
+
+                // 更新玩家列表
+                renderPlayerList();
+            }
+
+            displayElement.style.display = 'flex';
+            inputElement.style.display = 'none';
+        }
+
+        // 处理计分面板名字输入的按键事件
+        function handleScoringNameKeyPress(event) {
+            if (event.key === 'Enter') {
+                savePlayerNameInScoring();
+            }
         }
 
         // 选择玩家进入计分模式
@@ -942,7 +1205,7 @@
             document.getElementById('scoringPanel').style.display = 'block';
 
             // 更新计分面板信息
-            document.getElementById('scoringPlayerName').textContent = player.name;
+            document.getElementById('scoringPlayerNameText').textContent = player.name;
             document.getElementById('scoringPlayerScore').textContent = player.score;
 
             // 更新状态显示
@@ -1171,6 +1434,7 @@
                 ];
 
                 currentPlayerId = null;
+                editingPlayerId = null;
                 document.getElementById('playersListView').style.display = 'block';
                 document.getElementById('scoringPanel').style.display = 'none';
                 document.getElementById('resultsPanel').style.display = 'none';
